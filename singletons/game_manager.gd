@@ -14,6 +14,30 @@ var planets_textures = [
 	preload("res://images/planet09.png")
 ]
 
+#scenes
+const PLANET = preload("res://planet/planet.tscn")
+const PLANET_MARKERS_LEVEL_1 = preload("res://planet_markers/planet_markers_level1.tscn")
+const PLANET_MARKERS_LEVEL_2 = preload("res://planet_markers/planet_markers_level2.tscn")
+var planet_markers_scenes = [PLANET_MARKERS_LEVEL_1,PLANET_MARKERS_LEVEL_2]
+
+#current level
+var current_level = 0 #0 means level 1, 1 means level 2
+
+#get all maker positions according to selected level
+func get_marker_positions()->Array:
+	var positions = []
+	var level_instance = planet_markers_scenes[current_level].instantiate() #create in memory
+	for marker in level_instance.get_children(): #get markers
+		if marker is Marker2D: 
+			positions.append(marker.global_position) #add the position of every marker in array
+	
+	level_instance.queue_free() #free (remove) the instance scene (we no longer need this)
+	return positions
+			
+	
+
+
+
 func pick_random_texture() -> Texture:
 	#randomise the seed
 	randomize()	

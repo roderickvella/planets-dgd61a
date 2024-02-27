@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsh5c5bk6275r"]
+[gd_scene load_steps=3 format=3 uid="uid://bsh5c5bk6275r"]
 
 [ext_resource type="Texture2D" uid="uid://b43xnu672u7mr" path="res://images/Starset.png" id="1_5p0k4"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_r4pop"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_r4pop")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(640, 360)

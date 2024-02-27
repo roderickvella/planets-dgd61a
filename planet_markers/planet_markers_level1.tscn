@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://eylmilm0tx1y"]
+
+[node name="PlanetMarkersLevel1" type="Node2D"]
+
+[node name="Marker1" type="Marker2D" parent="."]
+position = Vector2(232, 169)
+
+[node name="Marker2" type="Marker2D" parent="."]
+position = Vector2(1045, 560)
