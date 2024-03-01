@@ -21,7 +21,7 @@ const PLANET_MARKERS_LEVEL_2 = preload("res://planet_markers/planet_markers_leve
 var planet_markers_scenes = [PLANET_MARKERS_LEVEL_1,PLANET_MARKERS_LEVEL_2]
 
 #current level
-var current_level = 0 #0 means level 1, 1 means level 2
+var current_level = 1 #0 means level 1, 1 means level 2
 
 #get all maker positions according to selected level
 func get_marker_positions()->Array:
