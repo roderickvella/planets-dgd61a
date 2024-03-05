@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://d0jhhv75ws75s"]
+
+[ext_resource type="Script" path="res://explosion/explosion.gd" id="1_7ik1v"]
+[ext_resource type="Texture2D" uid="uid://d1owprikdqhkv" path="res://images/flash00.png" id="1_l8orl"]
+[ext_resource type="Texture2D" uid="uid://bmbvgaipfqtbg" path="res://images/flash01.png" id="2_ej6nl"]
+[ext_resource type="Texture2D" uid="uid://bk5j4av0ist8j" path="res://images/flash02.png" id="3_8nrlv"]
+[ext_resource type="Texture2D" uid="uid://cu44n1yxg4cjf" path="res://images/flash03.png" id="4_schl3"]
+[ext_resource type="Texture2D" uid="uid://bsudchqnjvt0t" path="res://images/flash04.png" id="5_wtf7u"]
+[ext_resource type="Texture2D" uid="uid://b8ckfjt1k064h" path="res://images/flash05.png" id="6_utap5"]
+[ext_resource type="Texture2D" uid="uid://cla0xymillt6w" path="res://images/flash06.png" id="7_178ao"]
+[ext_resource type="Texture2D" uid="uid://deuduhi6ji21x" path="res://images/flash07.png" id="8_76dkp"]
+[ext_resource type="Texture2D" uid="uid://du8wjfk6e1a1u" path="res://images/flash08.png" id="9_gtkbi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yjm13"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l8orl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ej6nl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8nrlv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_schl3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wtf7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_utap5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_178ao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_76dkp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gtkbi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_tkhg8"]
+resource_name = "explode_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iq2c6"]
+_data = {
+"explode_animation": SubResource("Animation_tkhg8")
+}
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_7ik1v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.5)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_yjm13")
+frame = 3
+frame_progress = 0.263798
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iq2c6")
+}
+autoplay = "explode_animation"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

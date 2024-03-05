@@ -18,8 +18,14 @@ var texture: Texture #set via code (chosen texture for this instance)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameManager.on_planet_collision.connect(_on_planet_collision)
 	if(texture): #update the texture with the texture chosen via code
 		sprite.texture = texture
+
+func _on_planet_collision(planet,other_planet):
+	#disable movement if one of the planets collides with the other
+	set_process(false)
+	set_physics_process(false)
 
 #called to change the target position
 func set_target(target_pos):
@@ -60,6 +66,8 @@ func _physics_process(delta):
 		
 		#get the object that was collided with
 		var other_collided_object = collision.get_collider()
-		print_debug("Collision Detected") 
+		#broadcast signal to those subscribed that a collision happened
+		GameManager.on_planet_collision.emit(self,other_collided_object)
+		#print_debug("Collision Detected") 
 		
 

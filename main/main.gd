@@ -4,8 +4,40 @@ var planets = [] #store all planets in the scene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize() #randomise seed - must be called at least once per game
+	randomize() #randomise seed - must be called at least once per game	
 	spawn_planets()
+	#subscribe to any changes happening in on_planet_collision (in GameManager),
+	#once a change is automatically detected call the _on_planet_collision
+	GameManager.on_planet_collision.connect(_on_planet_collision)
+	
+func _on_planet_collision(planet,other_planet):
+	explode_planets(planet,other_planet)
+	
+func explode_planets(planet,other_planet):
+	#check that both instances are valid
+	if is_instance_valid(planet) and is_instance_valid(other_planet):
+		#print_debug("Explode Planets:",planet,other_planet)
+		var explosion_instance = GameManager.EXPLOSION.instantiate()
+		#change the explosion position
+		explosion_instance.global_position = planet.global_position
+		#add this explosion to the scene
+		add_child(explosion_instance)
+		
+		var explosion_instance2 = GameManager.EXPLOSION.instantiate()
+		explosion_instance2.global_position = other_planet.global_position
+		add_child(explosion_instance2)
+		
+		#remove planets from the scene
+		planet.queue_free() #remove the planet from the scene
+		other_planet.queue_free()
+		
+		#remove the planets from the array
+		planets.erase(planet)
+		planets.erase(other_planet)
+	
+	
+	
+	
 	
 	
 func spawn_planets():

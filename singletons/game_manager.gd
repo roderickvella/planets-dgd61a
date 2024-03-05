@@ -1,5 +1,7 @@
 extends Node
 
+signal on_planet_collision(planet,other_planet)
+
 #planets textures
 var planets_textures = [
 	preload("res://images/planet00.png"),
@@ -19,6 +21,7 @@ const PLANET = preload("res://planet/planet.tscn")
 const PLANET_MARKERS_LEVEL_1 = preload("res://planet_markers/planet_markers_level1.tscn")
 const PLANET_MARKERS_LEVEL_2 = preload("res://planet_markers/planet_markers_level2.tscn")
 var planet_markers_scenes = [PLANET_MARKERS_LEVEL_1,PLANET_MARKERS_LEVEL_2]
+const EXPLOSION = preload("res://explosion/explosion.tscn")
 
 #current level
 var current_level = 1 #0 means level 1, 1 means level 2
